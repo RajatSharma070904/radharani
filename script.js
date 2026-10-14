@@ -36,15 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3. Floating entrance animation for the fixed WhatsApp button
-  const fixedBtn = document.getElementById('fixedWhatsAppBtn');
-  if (fixedBtn) {
-    fixedBtn.style.opacity = '0';
-    fixedBtn.style.transform = 'translateX(-50%) translateY(30px)';
+  // 3. Floating entrance animation for the fixed WhatsApp dock
+  const floatingDock = document.getElementById('floatingDock');
+  if (floatingDock) {
+    floatingDock.style.opacity = '0';
     setTimeout(() => {
-      fixedBtn.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-      fixedBtn.style.opacity = '1';
-      fixedBtn.style.transform = 'translateX(-50%) translateY(0)';
-    }, 250);
+      floatingDock.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      floatingDock.style.opacity = '1';
+    }, 200);
   }
 });

@@ -245,16 +245,25 @@ nav a:hover {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
+  grid-template-columns: 0.95fr 1.15fr;
   align-items: center;
   gap: 48px;
   position: relative;
   z-index: 2;
 }
 
-/* Left Column Content */
+/* Left Column: Poster Showcase (Placed Before Text) */
+.hero-poster-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 1;
+}
+
+/* Right Column: Content (Placed After Poster) */
 .hero-content-col {
   text-align: left;
+  order: 2;
 }
 
 .hero-badge-pill {
@@ -423,15 +432,10 @@ nav a:hover {
   font-size: 14px;
 }
 
-/* Right Column: Poster Showcase */
-.hero-poster-col {
-  display: flex;
-  justify-content: center;
-}
-
+/* Poster Frame & Showcase Link */
 .poster-frame {
   position: relative;
-  max-width: 440px;
+  max-width: 460px;
   width: 100%;
 }
 
@@ -965,7 +969,7 @@ nav a:hover {
 footer {
   background: #201107;
   color: #dfcdbd;
-  padding: 60px 0 30px;
+  padding: 60px 0 100px;
   border-top: 1px solid rgba(197, 125, 57, 0.3);
 }
 
@@ -1016,38 +1020,65 @@ footer {
 }
 
 /* ==========================================================================
-   FIXED FLOATING WHATSAPP BUTTON (BOTTOM)
+   STATIC / FIXED FLOATING WHATSAPP PILL (AS REQUESTED IN USER SCREENSHOT)
    ========================================================================== */
-.floating-whatsapp-btn {
+.sticky-whatsapp-pill-wrapper,
+.floating-dock-wrapper {
   position: fixed;
   bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-  background: var(--wa-gradient);
-  color: #ffffff;
-  padding: 13px 28px;
-  border-radius: var(--radius-full);
-  font-weight: 800;
-  font-size: 14.5px;
-  letter-spacing: 0.5px;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  z-index: 99999;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-inline: 16px;
+  box-sizing: border-box;
+  pointer-events: none;
+  transform: none !important;
+}
+
+.sticky-whatsapp-pill {
+  pointer-events: auto;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  color: #ffffff !important;
+  padding: 16px 36px;
+  border-radius: 9999px;
+  font-family: 'Poppins', 'Inter', var(--font-body), sans-serif;
+  font-weight: 850;
+  font-size: 16px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  box-shadow: 0 14px 40px rgba(16, 185, 129, 0.55), 0 0 25px rgba(5, 150, 105, 0.4);
+  border: 2.5px solid rgba(255, 255, 255, 0.6);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease;
+  white-space: nowrap;
 }
 
-.floating-whatsapp-btn:hover {
-  transform: translateX(-50%) translateY(-3px);
-  box-shadow: 0 14px 40px rgba(37, 211, 102, 0.65);
-  color: #ffffff;
+.sticky-whatsapp-pill:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 50px rgba(16, 185, 129, 0.7), 0 0 35px rgba(5, 150, 105, 0.6);
+  background: linear-gradient(135deg, #14b8a6 0%, #10b981 50%, #059669 100%);
+  color: #ffffff !important;
 }
 
-.floating-whatsapp-btn svg {
-  width: 22px;
-  height: 22px;
+.sticky-whatsapp-pill .wa-pill-icon {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.sticky-whatsapp-pill .pill-text {
+  display: inline-block;
+  line-height: 1;
 }
 
 /* ==========================================================================
@@ -1057,10 +1088,17 @@ footer {
   .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
+    gap: 36px;
+  }
+
+  .hero-poster-col {
+    order: 1;
+    width: 100%;
+    margin-bottom: 6px;
   }
 
   .hero-content-col {
+    order: 2;
     text-align: center;
   }
 
@@ -1093,11 +1131,39 @@ footer {
   }
 }
 
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .sticky-whatsapp-pill-wrapper {
+    bottom: max(18px, env(safe-area-inset-bottom, 18px));
+    padding-inline: 14px;
+  }
+
+  .sticky-whatsapp-pill {
+    width: 100%;
+    max-width: 440px;
+    padding: 15px 22px;
+    font-size: 15px;
+    font-weight: 850;
+    gap: 10px;
+    white-space: nowrap;
+    border-radius: 9999px;
+  }
+
+  .sticky-whatsapp-pill .wa-pill-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
 @media (max-width: 680px) {
   .hero-split-section {
-    padding: 40px 20px;
+    padding: 32px 18px;
     margin-top: 14px;
     border-radius: var(--radius-lg);
+  }
+
+  .poster-frame {
+    max-width: 360px;
   }
 
   nav {
@@ -1111,11 +1177,46 @@ footer {
   .collections-grid {
     grid-template-columns: 1fr;
   }
+}
 
-  .floating-whatsapp-btn {
-    width: 90%;
-    justify-content: center;
-    font-size: 13.5px;
-    padding: 12px 20px;
+/* Mobile Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .sticky-whatsapp-pill-wrapper {
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    padding-inline: 12px;
+  }
+
+  .sticky-whatsapp-pill {
+    width: 100%;
+    max-width: 390px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 850;
+    letter-spacing: 0.5px;
+    gap: 9px;
+  }
+
+  .sticky-whatsapp-pill .wa-pill-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Small Screen Phones (max-width: 360px) */
+@media (max-width: 360px) {
+  .sticky-whatsapp-pill-wrapper {
+    padding-inline: 8px;
+  }
+
+  .sticky-whatsapp-pill {
+    padding: 12px 10px;
+    font-size: 12.5px;
+    letter-spacing: 0.3px;
+    gap: 7px;
+  }
+
+  .sticky-whatsapp-pill .wa-pill-icon {
+    width: 20px;
+    height: 20px;
   }
 }
